@@ -93,3 +93,37 @@
         </div>
     </div>
 </section>
+
+
+
+
+<section class="about-section-s2 section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-12">
+                <div class="about-left-content">
+                    <div class="image-1">
+                        <img src="<?php echo esc_url(get_theme_mod('about_image_1', get_template_directory_uri() . '/assets/images/about/img-2.jpg')); ?>" alt="About Image 1">
+                    </div>
+                    <div class="image-2">
+                        <img src="<?php echo esc_url(get_theme_mod('about_image_2', get_template_directory_uri() . '/assets/images/about/img-3.jpg')); ?>" alt="About Image 2">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-12">
+                <div class="about-right-content">
+                    <h2 class="title"><?php echo esc_html(get_theme_mod('about_title', 'ABOUT COMPANY')); ?></h2>
+                    <h3 class="sub-title"><?php echo esc_html(get_theme_mod('about_subtitle', 'We Are Solving All of Your Business Problem')); ?></h3>
+                    <p class="text"><?php echo wp_kses_post(get_theme_mod('about_text', 'Our industry\'s business policy encompasses the strategies, guidelines, and practices that technology companies use to achieve their goals and objectives. The policies may vary depending on the company\'s size, market position, and competitive landscape.')); ?></p>
+                    <div class="ceo-content">
+                        <h2><?php echo esc_html(get_theme_mod('about_ceo_name', 'Robert Willum')); ?></h2>
+                        <span><?php echo esc_html(get_theme_mod('about_ceo_position', 'CEO & Founder of Manit')); ?></span>
+                        <div class="signeture">
+                            <img src="<?php echo esc_url(get_theme_mod('about_signature_image', get_template_directory_uri() . '/assets/images/about/signeture.png')); ?>" alt="Signature">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
