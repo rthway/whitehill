@@ -149,3 +149,148 @@ function whitehill_customize_register_hero($wp_customize) {
     }
 }
 add_action('customize_register', 'whitehill_customize_register_hero');
+
+
+
+function funfact_customize_register($wp_customize) {
+    $wp_customize->add_section('funfact_section', [
+        'title'    => __('Funfact Settings', 'your-textdomain'),
+        'priority' => 30,
+    ]);
+
+    for ($i = 1; $i <= 4; $i++) {
+        $wp_customize->add_setting("funfact_count_$i", [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+        $wp_customize->add_setting("funfact_suffix_$i", [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+        $wp_customize->add_setting("funfact_label_$i", [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+
+        $wp_customize->add_control("funfact_count_$i", [
+            'label'    => __("Funfact #$i Number (data-count)", 'your-textdomain'),
+            'section'  => 'funfact_section',
+            'type'     => 'text',
+        ]);
+        $wp_customize->add_control("funfact_suffix_$i", [
+            'label'    => __("Funfact #$i Number suffix (e.g. K+, +)", 'your-textdomain'),
+            'section'  => 'funfact_section',
+            'type'     => 'text',
+        ]);
+        $wp_customize->add_control("funfact_label_$i", [
+            'label'    => __("Funfact #$i Label (h4 text)", 'your-textdomain'),
+            'section'  => 'funfact_section',
+            'type'     => 'text',
+        ]);
+    }
+}
+add_action('customize_register', 'funfact_customize_register');
+
+
+
+
+
+
+
+function whitehill_customize_register_about_section($wp_customize) {
+
+    // Section for About
+    $wp_customize->add_section('about_section', [
+        'title' => __('About Section', 'whitehill'),
+        'priority' => 30,
+        'description' => __('Customize the About Section content', 'whitehill'),
+    ]);
+
+    // Left images
+    $wp_customize->add_setting('about_image_1', [
+        'default' => get_template_directory_uri() . '/assets/images/about/img-2.jpg',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_image_1', [
+        'label' => __('About Image 1', 'whitehill'),
+        'section' => 'about_section',
+        'settings' => 'about_image_1',
+    ]));
+
+    $wp_customize->add_setting('about_image_2', [
+        'default' => get_template_directory_uri() . '/assets/images/about/img-3.jpg',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_image_2', [
+        'label' => __('About Image 2', 'whitehill'),
+        'section' => 'about_section',
+        'settings' => 'about_image_2',
+    ]));
+
+    // Title
+    $wp_customize->add_setting('about_title', [
+        'default' => 'ABOUT COMPANY',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('about_title', [
+        'label' => __('About Title', 'whitehill'),
+        'section' => 'about_section',
+        'type' => 'text',
+    ]);
+
+    // Subtitle
+    $wp_customize->add_setting('about_subtitle', [
+        'default' => 'We Are Solving All of Your Business Problem',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('about_subtitle', [
+        'label' => __('About Subtitle', 'whitehill'),
+        'section' => 'about_section',
+        'type' => 'text',
+    ]);
+
+    // Paragraph text
+    $wp_customize->add_setting('about_text', [
+        'default' => 'Our industry\'s business policy encompasses the strategies, guidelines, and practices that technology companies use to achieve their goals and objectives. The policies may vary depending on the company\'s size, market position, and competitive landscape.',
+        'sanitize_callback' => 'wp_kses_post',
+    ]);
+    $wp_customize->add_control('about_text', [
+        'label' => __('About Paragraph Text', 'whitehill'),
+        'section' => 'about_section',
+        'type' => 'textarea',
+    ]);
+
+    // CEO Name
+    $wp_customize->add_setting('about_ceo_name', [
+        'default' => 'Robert Willum',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('about_ceo_name', [
+        'label' => __('CEO Name', 'whitehill'),
+        'section' => 'about_section',
+        'type' => 'text',
+    ]);
+
+    // CEO Position
+    $wp_customize->add_setting('about_ceo_position', [
+        'default' => 'CEO & Founder of Manit',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('about_ceo_position', [
+        'label' => __('CEO Position', 'whitehill'),
+        'section' => 'about_section',
+        'type' => 'text',
+    ]);
+
+    // Signature Image
+    $wp_customize->add_setting('about_signature_image', [
+        'default' => get_template_directory_uri() . '/assets/images/about/signeture.png',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_signature_image', [
+        'label' => __('Signature Image', 'whitehill'),
+        'section' => 'about_section',
+        'settings' => 'about_signature_image',
+    ]));
+}
+add_action('customize_register', 'whitehill_customize_register_about_section');

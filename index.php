@@ -60,34 +60,36 @@
 </style>
 <br />
 
-<!-- funfact start -->
 <section class="funfact-section s2">
     <div class="container">
         <div class="row">
-            <div class="col col-lg-3 col-md-6 col-12">
-                <div class="item">
-                    <h3><span class="odometer" data-count="12"></span>K+</h3>
-                    <h4>Project Completed</h4>
+            <?php for ($i = 1; $i <= 4; $i++): 
+                $count = get_theme_mod("funfact_count_$i", '');
+                $suffix = get_theme_mod("funfact_suffix_$i", '');
+                $label = get_theme_mod("funfact_label_$i", '');
+
+                // Default values if empty (to keep your original text)
+                if (!$count) {
+                    // Provide default numbers same as your example
+                    $default_counts = ['12', '20', '10', '32'];
+                    $count = $default_counts[$i - 1];
+                }
+                if (!$suffix) {
+                    $default_suffixes = ['K+', '+', 'K+', '+'];
+                    $suffix = $default_suffixes[$i - 1];
+                }
+                if (!$label) {
+                    $default_labels = ['Project Completed', 'Industry Experience', 'Happy Clients', 'Awards Winner'];
+                    $label = $default_labels[$i - 1];
+                }
+            ?>
+                <div class="col col-lg-3 col-md-6 col-12">
+                    <div class="item">
+                        <h3><span class="odometer" data-count="<?php echo esc_attr($count); ?>"></span><?php echo esc_html($suffix); ?></h3>
+                        <h4><?php echo esc_html($label); ?></h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col col-lg-3 col-md-6 col-12">
-                <div class="item">
-                    <h3><span class="odometer" data-count="20"></span>+</h3>
-                    <h4>Industry Experience</h4>
-                </div>
-            </div>
-            <div class="col col-lg-3 col-md-6 col-12">
-                <div class="item">
-                    <h3><span class="odometer" data-count="10"></span>K+</h3>
-                    <h4>Happy Clients</h4>
-                </div>
-            </div>
-            <div class="col col-lg-3 col-md-6 col-12">
-                <div class="item">
-                    <h3><span class="odometer" data-count="32"></span>+</h3>
-                    <h4>Awards Winner</h4>
-                </div>
-            </div>
+            <?php endfor; ?>
         </div>
     </div>
 </section>
