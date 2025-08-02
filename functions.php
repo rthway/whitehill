@@ -71,3 +71,81 @@ add_action('wp_enqueue_scripts', 'whitehill_enqueue_assets');
 
 
 
+
+function whitehill_customize_register_hero($wp_customize) {
+
+    // Section
+    $wp_customize->add_section('static_hero_section', array(
+        'title'    => __('Static Hero Section', 'whitehill'),
+        'priority' => 30,
+    ));
+
+    // Heading Title
+    $wp_customize->add_setting('hero_heading_text', array(
+        'default'   => 'We Are The <span class="text-bg1">Perfect</span> <span class="text-bg2">Solution</span> For Your Project',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+    $wp_customize->add_control('hero_heading_text', array(
+        'label'   => __('Hero Heading', 'whitehill'),
+        'section' => 'static_hero_section',
+        'type'    => 'textarea',
+    ));
+
+    // Paragraph Text
+    $wp_customize->add_setting('hero_paragraph', array(
+        'default' => 'Creating an agency is a long-term commitment...',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('hero_paragraph', array(
+        'label'   => __('Hero Paragraph', 'whitehill'),
+        'section' => 'static_hero_section',
+        'type'    => 'textarea',
+    ));
+
+    // Button Text
+    $wp_customize->add_setting('hero_button_text', array(
+        'default' => 'Get Started',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('hero_button_text', array(
+        'label'   => __('Button Text', 'whitehill'),
+        'section' => 'static_hero_section',
+        'type'    => 'text',
+    ));
+
+    // Button URL
+    $wp_customize->add_setting('hero_button_url', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('hero_button_url', array(
+        'label'   => __('Button URL', 'whitehill'),
+        'section' => 'static_hero_section',
+        'type'    => 'url',
+    ));
+
+    // Hero Slider Images (Repeatable)
+    for ($i = 1; $i <= 5; $i++) {
+        $wp_customize->add_setting("hero_slider_img_$i", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "hero_slider_img_$i", array(
+            'label'   => __("Slider Image $i", 'whitehill'),
+            'section' => 'static_hero_section',
+        )));
+    }
+
+    // Hero Side Images
+    for ($i = 1; $i <= 3; $i++) {
+        $wp_customize->add_setting("hero_side_img_$i", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "hero_side_img_$i", array(
+            'label'   => __("Side Image $i", 'whitehill'),
+            'section' => 'static_hero_section',
+        )));
+    }
+}
+add_action('customize_register', 'whitehill_customize_register_hero');
