@@ -294,3 +294,89 @@ function whitehill_customize_register_about_section($wp_customize) {
     ]));
 }
 add_action('customize_register', 'whitehill_customize_register_about_section');
+
+
+
+
+
+
+
+
+function register_service_post_type() {
+    register_post_type('service', array(
+        'labels' => array(
+            'name' => 'Services',
+            'singular_name' => 'Service',
+        ),
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'menu_icon' => 'dashicons-admin-tools',
+        'rewrite' => array('slug' => 'services'),
+    ));
+}
+add_action('init', 'register_service_post_type');
+
+
+
+
+
+
+function whitehill_customize_service_register($wp_customize) {
+    // Services Section
+    $wp_customize->add_section('whitehill_services_section', array(
+        'title' => __('Services Section', 'whitehill'),
+        'priority' => 30,
+    ));
+
+    // Title & Subtitle
+    $wp_customize->add_setting('whitehill_services_title', array('default' => 'Our Services'));
+    $wp_customize->add_control('whitehill_services_title', array(
+        'label' => __('Section Title', 'whitehill'),
+        'section' => 'whitehill_services_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('whitehill_services_subtitle', array('default' => 'Design the Concept of Your Business Idea Now'));
+    $wp_customize->add_control('whitehill_services_subtitle', array(
+        'label' => __('Section Subtitle', 'whitehill'),
+        'section' => 'whitehill_services_section',
+        'type' => 'text',
+    ));
+
+    // Loop for 8 services
+    for ($i = 1; $i <= 8; $i++) {
+        // Icon
+        $wp_customize->add_setting("whitehill_service_icon_$i");
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "whitehill_service_icon_$i", array(
+            'label' => __("Service $i Icon", 'whitehill'),
+            'section' => 'whitehill_services_section',
+        )));
+
+        // Title
+        $wp_customize->add_setting("whitehill_service_title_$i", array('default' => "Service Title $i"));
+        $wp_customize->add_control("whitehill_service_title_$i", array(
+            'label' => __("Service $i Title", 'whitehill'),
+            'section' => 'whitehill_services_section',
+            'type' => 'text',
+        ));
+
+        // Description
+        $wp_customize->add_setting("whitehill_service_desc_$i", array('default' => "Short description for service $i."));
+        $wp_customize->add_control("whitehill_service_desc_$i", array(
+            'label' => __("Service $i Description", 'whitehill'),
+            'section' => 'whitehill_services_section',
+            'type' => 'textarea',
+        ));
+
+        // Link
+        $wp_customize->add_setting("whitehill_service_link_$i", array('default' => '#'));
+        $wp_customize->add_control("whitehill_service_link_$i", array(
+            'label' => __("Service $i Link", 'whitehill'),
+            'section' => 'whitehill_services_section',
+            'type' => 'url',
+        ));
+    }
+}
+add_action('customize_register', 'whitehill_customize_service_register');
+

@@ -127,3 +127,49 @@
         </div>
     </div>
 </section>
+
+
+
+
+<!-- services start -->
+<section class="services-section-s2 section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="section-title">
+                    <span><?php echo esc_html(get_theme_mod('whitehill_services_title', 'Our Services')); ?></span>
+                    <h2><?php echo esc_html(get_theme_mod('whitehill_services_subtitle', 'Design the Concept of Your Business Idea Now')); ?></h2>
+                </div>
+            </div>
+        </div>
+        <div class="services-wrap">
+            <div class="row">
+                <?php for ($i = 1; $i <= 8; $i++): ?>
+                    <div class="col col-xl-3 col-lg-6 col-md-6 col-12">
+                        <div class="services-card">
+                            <div class="number-shape">
+                                <span><?php echo sprintf('%02d', $i); ?></span>
+                                <div class="shape">
+                                    <svg viewBox="0 0 112 107" fill="none">
+                                        <path d="M67.9706 0.555039C89.2118 -0.484865 110.489 16.3952 111.529 37.6365C112.568 58.8777 92.9541 105.645 71.7129 106.685C50.4716 107.725 1.72311 63.4921 0.683209 42.2509C-0.356694 21.0097 46.7293 1.59494 67.9706 0.555039Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="icon">
+                                <img src="<?php echo esc_url(get_theme_mod("whitehill_service_icon_$i")); ?>" alt="">
+                            </div>
+                            <h2><?php echo esc_html(get_theme_mod("whitehill_service_title_$i")); ?></h2>
+                            <span><?php echo esc_html(get_theme_mod("whitehill_service_desc_$i")); ?></span>
+                            <h3>
+                                <a href="<?php echo esc_url(get_theme_mod("whitehill_service_link_$i")); ?>">
+                                    <span>Learn More</span>
+                                    <i class="ti-arrow-right"></i>
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+</section>

@@ -4114,7 +4114,7 @@ img {
 .services-section .services-card h2,
 .services-section-s2 .services-card h2 {
   color: #000B47;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 70px;
   margin-bottom: 0;
@@ -4122,7 +4122,7 @@ img {
 @media (max-width: 575px) {
   .services-section .services-card h2,
   .services-section-s2 .services-card h2 {
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 .services-section .services-card span,
