@@ -4190,7 +4190,53 @@ img {
 .services-section-s2 .col:nth-child(4) .services-card h3 a span {
   color: #7DC370;
 }
+/* Card 5 */
+.services-section .col:nth-child(5) .services-card .number-shape .shape svg path,
+.services-section-s2 .col:nth-child(5) .services-card .number-shape .shape svg path {
+  fill: #36B9CC;
+}
+.services-section .col:nth-child(5) .services-card h3 a,
+.services-section-s2 .col:nth-child(5) .services-card h3 a,
+.services-section .col:nth-child(5) .services-card h3 a span,
+.services-section-s2 .col:nth-child(5) .services-card h3 a span {
+  color: #36B9CC;
+}
 
+/* Card 6 */
+.services-section .col:nth-child(6) .services-card .number-shape .shape svg path,
+.services-section-s2 .col:nth-child(6) .services-card .number-shape .shape svg path {
+  fill: #E36ACE;
+}
+.services-section .col:nth-child(6) .services-card h3 a,
+.services-section-s2 .col:nth-child(6) .services-card h3 a,
+.services-section .col:nth-child(6) .services-card h3 a span,
+.services-section-s2 .col:nth-child(6) .services-card h3 a span {
+  color: #E36ACE;
+}
+
+/* Card 7 */
+.services-section .col:nth-child(7) .services-card .number-shape .shape svg path,
+.services-section-s2 .col:nth-child(7) .services-card .number-shape .shape svg path {
+  fill: #FFA07A;
+}
+.services-section .col:nth-child(7) .services-card h3 a,
+.services-section-s2 .col:nth-child(7) .services-card h3 a,
+.services-section .col:nth-child(7) .services-card h3 a span,
+.services-section-s2 .col:nth-child(7) .services-card h3 a span {
+  color: #FFA07A;
+}
+
+/* Card 8 */
+.services-section .col:nth-child(8) .services-card .number-shape .shape svg path,
+.services-section-s2 .col:nth-child(8) .services-card .number-shape .shape svg path {
+  fill: #00C49F;
+}
+.services-section .col:nth-child(8) .services-card h3 a,
+.services-section-s2 .col:nth-child(8) .services-card h3 a,
+.services-section .col:nth-child(8) .services-card h3 a span,
+.services-section-s2 .col:nth-child(8) .services-card h3 a span {
+  color: #00C49F;
+}
 /*3.5 videos-section */
 .videos-section {
   position: relative;

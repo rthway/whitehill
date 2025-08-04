@@ -302,25 +302,6 @@ add_action('customize_register', 'whitehill_customize_register_about_section');
 
 
 
-function register_service_post_type() {
-    register_post_type('service', array(
-        'labels' => array(
-            'name' => 'Services',
-            'singular_name' => 'Service',
-        ),
-        'public' => true,
-        'has_archive' => false,
-        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
-        'menu_icon' => 'dashicons-admin-tools',
-        'rewrite' => array('slug' => 'services'),
-    ));
-}
-add_action('init', 'register_service_post_type');
-
-
-
-
-
 
 function whitehill_customize_service_register($wp_customize) {
     // Services Section
@@ -380,3 +361,83 @@ function whitehill_customize_service_register($wp_customize) {
 }
 add_action('customize_register', 'whitehill_customize_service_register');
 
+
+
+
+
+
+function whitehill_register_project_cpt() {
+    register_post_type('project', array(
+        'labels' => array(
+            'name' => 'Projects',
+            'singular_name' => 'Project',
+            'add_new_item' => 'Add New Project',
+            'edit_item' => 'Edit Project',
+            'new_item' => 'New Project',
+        ),
+        'public' => true,
+        'menu_icon' => 'dashicons-portfolio',
+        'has_archive' => true,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true, // for block editor/meta UI
+    ));
+
+    // Register meta fields
+    register_post_meta('project', 'tagline', array(
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        },
+    ));
+
+    register_post_meta('project', 'link', array(
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'esc_url_raw',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        },
+    ));
+}
+add_action('init', 'whitehill_register_project_cpt');
+
+
+
+function whitehill_project_meta_boxes() {
+    add_meta_box('whitehill_project_fields', 'Project Details', 'whitehill_project_fields_callback', 'project', 'normal', 'high');
+}
+add_action('add_meta_boxes', 'whitehill_project_meta_boxes');
+
+function whitehill_project_fields_callback($post) {
+    $tagline = get_post_meta($post->ID, 'tagline', true);
+    $link = get_post_meta($post->ID, 'link', true);
+    wp_nonce_field('whitehill_project_fields_nonce', 'whitehill_project_nonce');
+    ?>
+    <p>
+        <label for="whitehill_tagline"><strong>Tagline:</strong></label><br>
+        <input type="text" name="whitehill_tagline" id="whitehill_tagline" value="<?php echo esc_attr($tagline); ?>" style="width:100%;">
+    </p>
+    <p>
+        <label for="whitehill_link"><strong>Project Link (URL):</strong></label><br>
+        <input type="url" name="whitehill_link" id="whitehill_link" value="<?php echo esc_url($link); ?>" style="width:100%;">
+    </p>
+    <?php
+}
+
+function whitehill_save_project_meta($post_id) {
+    if (!isset($_POST['whitehill_project_nonce']) || !wp_verify_nonce($_POST['whitehill_project_nonce'], 'whitehill_project_fields_nonce')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['whitehill_tagline'])) {
+        update_post_meta($post_id, 'tagline', sanitize_text_field($_POST['whitehill_tagline']));
+    }
+    if (isset($_POST['whitehill_link'])) {
+        update_post_meta($post_id, 'link', esc_url_raw($_POST['whitehill_link']));
+    }
+}
+add_action('save_post', 'whitehill_save_project_meta');

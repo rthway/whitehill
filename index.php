@@ -173,3 +173,85 @@
         </div>
     </div>
 </section>
+
+
+
+
+
+<!-- project start -->
+<section class="project-section-s2 section-padding">
+    <div class="container">
+        <div class="section-title">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <span>Recent Projects</span>
+                    <h2>Our Latest Projects</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <?php
+            $args = array(
+                'post_type' => 'project',
+                'posts_per_page' => 5, // or -1 for all
+            );
+            $query = new WP_Query($args);
+            if ($query->have_posts()):
+                while ($query->have_posts()): $query->the_post();
+                    $tagline = get_post_meta(get_the_ID(), 'tagline', true);
+                    $link = get_post_meta(get_the_ID(), 'link', true);
+                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                    if (!$thumbnail_url) {
+                        $thumbnail_url = get_template_directory_uri() . '/assets/images/project/placeholder.jpg';
+                    }
+                    if (!$link) {
+                        $link = get_permalink();
+                    }
+            ?>
+            <div class="col-md-4">
+                <div class="project-card">
+                    <div class="image">
+                        <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title_attribute(); ?>">
+                    </div>
+                    <div class="content">
+                        <span><?php echo esc_html($tagline ?: 'Development / Idea'); ?></span>
+                        <h2><?php the_title(); ?></h2>
+                        <a href="<?php echo esc_url($link); ?>" class="project-link">
+                            <div class="icon">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/project/icon-arrow.svg" alt="">
+                            </div>
+                            <div class="shape">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/project/icon-bg.svg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php endwhile; wp_reset_postdata(); else: ?>
+                <p>No projects found.</p>
+            <?php endif; ?>
+            <!-- 6th Static Card: All Projects Link -->
+            <div class="col-md-4">
+                <div class="project-card">
+                    <div class="image">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/project/all-projects.jpg" alt="All Projects">
+                    </div>
+                    <div class="content">
+                        <span>Explore</span>
+                        <h2>All Projects</h2>
+                        <a href="<?php echo site_url('/portfolio'); ?>" class="project-link">
+                            <div class="icon">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/project/icon-arrow.svg" alt="">
+                            </div>
+                            <div class="shape">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/project/icon-bg.svg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
