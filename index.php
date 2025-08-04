@@ -255,3 +255,99 @@
     </div>
 </section>
 
+
+
+
+<section class="testimonial-section section-padding">
+    <div class="container">
+        <div class="row align-content-center">
+            <div class="col-xl-4 col-12">
+                <div class="section-title"> 
+                    <span><?php echo esc_html(get_theme_mod('testimonial_section_heading', 'Testimonial')); ?></span>
+                    <h2><?php echo esc_html(get_theme_mod('testimonial_subheading', 'Our Latest Case Studies')); ?></h2>
+                    <p><?php echo esc_html(get_theme_mod('testimonial_paragraph', 'Fringilla feugiat et imperdiet iaculis sceliue vestibulum diam eget fusce. Vitae id amet eleifend lacus ornare nisl leo dis est.')); ?></p>
+                    <div class="testimonial-btn">
+                        <a href="<?php echo esc_url(get_theme_mod('testimonial_button_link', home_url('/about'))); ?>" class="theme-btn">
+                            <?php echo esc_html(get_theme_mod('testimonial_button_text', 'Get in Touch')); ?> <i class="ti-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-12">
+                <div class="testimonial-slider">
+                    <?php for ($i = 1; $i <= 3; $i++) : ?>
+                        <div class="item">
+                            <div class="client">
+                                <div class="image">
+                                    <img src="<?php echo esc_url(get_theme_mod("testimonial_{$i}_image")); ?>" alt="">
+                                </div>
+                                <div class="text">
+                                    <h2><?php echo esc_html(get_theme_mod("testimonial_{$i}_name")); ?></h2>
+                                    <span><?php echo esc_html(get_theme_mod("testimonial_{$i}_role")); ?></span>
+                                </div>
+                            </div>
+                            <div class="reting">
+                                <ul>
+                                    <?php
+                                    $rating = intval(get_theme_mod("testimonial_{$i}_rating", 4));
+                                    for ($s = 1; $s <= 5; $s++) {
+                                        if ($s <= $rating) {
+                                            echo '<li><img src="' . get_template_directory_uri() . '/assets/images/testimonial/star.svg" alt=""></li>';
+                                        } else {
+                                            echo '<li><img src="' . get_template_directory_uri() . '/assets/images/testimonial/star-1.svg" alt=""></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                                <span>(<?php echo esc_html($rating); ?>.0)</span>
+                            </div>
+                            <p><?php echo esc_html(get_theme_mod("testimonial_{$i}_text")); ?></p>
+                            <div class="icon">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/testimonial/quote.png" alt="">
+                            </div>
+                        </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Slick CSS -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+/>
+
+<!-- jQuery (if not already loaded by WordPress) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Slick JS -->
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+></script>
+
+<script>
+jQuery(document).ready(function($) {
+  $('.testimonial-slider').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000, // 3 seconds
+    arrows: false,
+    dots: true,
+    infinite: true,
+    rtl: false,
+    speed: 600,
+    cssEase: 'ease',
+    pauseOnHover: false,
+  });
+});
+</script>

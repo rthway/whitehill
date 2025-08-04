@@ -441,3 +441,105 @@ function whitehill_save_project_meta($post_id) {
     }
 }
 add_action('save_post', 'whitehill_save_project_meta');
+
+
+
+
+
+
+function whitehill_customize_testimonials($wp_customize) {
+    // Testimonials Section
+    $wp_customize->add_section('whitehill_testimonials_section', array(
+        'title'    => __('Testimonials', 'whitehill'),
+        'priority' => 30,
+    ));
+
+    // Dynamic Section Heading fields
+    $wp_customize->add_setting('testimonial_section_heading', array(
+        'default' => 'Testimonial',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_setting('testimonial_subheading', array(
+        'default' => 'Our Latest Case Studies',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_setting('testimonial_paragraph', array(
+        'default' => 'Fringilla feugiat et imperdiet iaculis sceliue vestibulum diam eget fusce. Vitae id amet eleifend lacus ornare nisl leo dis est.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_setting('testimonial_button_text', array(
+        'default' => 'Get in Touch',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_setting('testimonial_button_link', array(
+        'default' => home_url('/about'),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control('testimonial_section_heading', array(
+        'label'   => __('Section Heading (span)', 'whitehill'),
+        'section' => 'whitehill_testimonials_section',
+        'type'    => 'text',
+    ));
+    $wp_customize->add_control('testimonial_subheading', array(
+        'label'   => __('Subheading (h2)', 'whitehill'),
+        'section' => 'whitehill_testimonials_section',
+        'type'    => 'text',
+    ));
+    $wp_customize->add_control('testimonial_paragraph', array(
+        'label'   => __('Paragraph (p)', 'whitehill'),
+        'section' => 'whitehill_testimonials_section',
+        'type'    => 'textarea',
+    ));
+    $wp_customize->add_control('testimonial_button_text', array(
+        'label'   => __('Button Text', 'whitehill'),
+        'section' => 'whitehill_testimonials_section',
+        'type'    => 'text',
+    ));
+    $wp_customize->add_control('testimonial_button_link', array(
+        'label'   => __('Button Link URL', 'whitehill'),
+        'section' => 'whitehill_testimonials_section',
+        'type'    => 'url',
+    ));
+
+    // Existing testimonial fields loop
+    for ($i = 1; $i <= 3; $i++) {
+        $wp_customize->add_setting("testimonial_{$i}_name", array('default' => '', 'sanitize_callback' => 'sanitize_text_field'));
+        $wp_customize->add_setting("testimonial_{$i}_role", array('default' => '', 'sanitize_callback' => 'sanitize_text_field'));
+        $wp_customize->add_setting("testimonial_{$i}_image", array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
+        $wp_customize->add_setting("testimonial_{$i}_text", array('default' => '', 'sanitize_callback' => 'sanitize_textarea_field'));
+        $wp_customize->add_setting("testimonial_{$i}_rating", array('default' => '4', 'sanitize_callback' => 'absint'));
+
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "testimonial_{$i}_image", array(
+            'label'    => __("Image {$i}", 'whitehill'),
+            'section'  => 'whitehill_testimonials_section',
+            'settings' => "testimonial_{$i}_image",
+        )));
+
+        $wp_customize->add_control("testimonial_{$i}_name", array(
+            'label'   => __("Name {$i}", 'whitehill'),
+            'section' => 'whitehill_testimonials_section',
+            'type'    => 'text',
+        ));
+
+        $wp_customize->add_control("testimonial_{$i}_role", array(
+            'label'   => __("Role {$i}", 'whitehill'),
+            'section' => 'whitehill_testimonials_section',
+            'type'    => 'text',
+        ));
+
+        $wp_customize->add_control("testimonial_{$i}_rating", array(
+            'label'       => __("Rating (1–5) {$i}", 'whitehill'),
+            'section'     => 'whitehill_testimonials_section',
+            'type'        => 'number',
+            'input_attrs' => array('min' => 1, 'max' => 5),
+        ));
+
+        $wp_customize->add_control("testimonial_{$i}_text", array(
+            'label'   => __("Testimonial Text {$i}", 'whitehill'),
+            'section' => 'whitehill_testimonials_section',
+            'type'    => 'textarea',
+        ));
+    }
+}
+add_action('customize_register', 'whitehill_customize_testimonials');
